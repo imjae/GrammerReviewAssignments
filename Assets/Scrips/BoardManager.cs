@@ -19,7 +19,6 @@ public class BoardManager : Singleton<BoardManager>
 
 
     }
-
     void InitCell()
     {
         Instantiate(cellPrefab);
