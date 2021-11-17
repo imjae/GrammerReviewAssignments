@@ -22,10 +22,11 @@ public class ButtonEvent : MonoBehaviour
 
     void ReturnButtonEvent()
     {
-        BoardManager.Instance.history.Pop();
-
-
-        GameManager.Instance.Round = BoardManager.Instance.history.Count;
-        BoardManager.Instance.RefreshBoard();
+        if(BoardManager.Instance.history.Count > 1)
+        {
+            BoardManager.Instance.history.Pop();
+            GameManager.Instance.Round = BoardManager.Instance.history.Count;
+            BoardManager.Instance.RefreshBoard();
+        }
     }
 }
