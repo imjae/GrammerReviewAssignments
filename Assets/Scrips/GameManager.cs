@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    private int _boarSize;
+    public int _boarSize;
     private string _order;
 
     public int BoardSize
