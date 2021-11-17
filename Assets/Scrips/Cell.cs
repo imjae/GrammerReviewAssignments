@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Cell : MonoBehaviour, Poolable
 {
@@ -30,7 +31,8 @@ public class Cell : MonoBehaviour, Poolable
         get { return _cellText; }
         set { 
             _cellText = value;
-            transform.GetChild(0).GetComponent<Text>().text = _cellText;
+            Debug.Log(transform.GetChild(0).name);
+            transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _cellText;
         }
     }
 
@@ -41,7 +43,10 @@ public class Cell : MonoBehaviour, Poolable
 
         cellButton.onClick.AddListener(() =>
         {
+            Debug.Log(BoardManager.Instance.CurrentOrder());
             CellText = BoardManager.Instance.CurrentOrder();
+
+            BoardManager.Instance.history.Push(BoardManager.Instance.cellList);
         });
     }
 
