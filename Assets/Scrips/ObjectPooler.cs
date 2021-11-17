@@ -94,10 +94,8 @@ public class ObjectPooler : MonoBehaviour
 
     void Awake()
     {
-        _instance = this;    
-    }
-    void Start()
-    {
+        _instance = this;
+
         spawnObjects = new List<GameObject>();
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 

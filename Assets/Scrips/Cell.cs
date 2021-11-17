@@ -32,7 +32,6 @@ public class Cell : MonoBehaviour, Poolable
         set
         {
             _cellText = value;
-            Debug.Log(transform.GetChild(0).name);
             transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _cellText;
         }
     }

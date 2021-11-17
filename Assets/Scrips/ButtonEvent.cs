@@ -16,7 +16,7 @@ public class ButtonEvent : MonoBehaviour
         });
         historyDebugButton.onClick.AddListener(() =>
         {
-            GameManager.Instance.DebugHistory(BoardManager.Instance.history);
+            GameManager.Instance.DebugHistory<string>(BoardManager.Instance.history);
         });
     }
 

@@ -40,30 +40,23 @@ public class GameManager : Singleton<GameManager>
     public List<T> ListDeepCopy<T>(List<T> targetList)
     {
         List<T> resultList = new List<T>();
-        targetList.ForEach(target =>
-        {
-            
-            resultList.Add(target);
-        });
+        targetList.ForEach(target => resultList.Add(target));
 
         return resultList;
     }
 
-    public void DebugList(List<string> targetList)
+    public void DebugList<T>(List<T> targetList)
     {
         string tmp = "";
 
-        targetList.ForEach(text =>
-        {
-            tmp += text + "/";
-        });
+        targetList.ForEach(text => tmp += text + "/");
 
         Debug.Log(tmp);
     }
 
-    public void DebugHistory(Stack<List<string>> targetStack)
+    public void DebugHistory<T>(Stack<List<T>> targetStack)
     {
-        foreach (List<string> tlist in targetStack)
+        foreach (List<T> tlist in targetStack)
         {
             DebugList(tlist);
         }
