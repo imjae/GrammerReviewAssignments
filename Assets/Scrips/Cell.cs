@@ -44,10 +44,11 @@ public class Cell : MonoBehaviour, Poolable
 
         cellButton.onClick.AddListener(() =>
         {
-            Debug.Log(BoardManager.Instance.CurrentOrder());
             CellText = BoardManager.Instance.CurrentOrder();
-
-            BoardManager.Instance.history.Push(BoardManager.Instance.cellList);
+            BoardManager.Instance.RefreshTextList();
+            
+            BoardManager.Instance.history.Push(
+                GameManager.Instance.ListDeepCopy<string>(BoardManager.Instance.cellList));
             GameManager.Instance.Round = BoardManager.Instance.history.Count;
         });
     }

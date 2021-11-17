@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class BoardManager : Singleton<BoardManager>
 {
@@ -8,16 +10,16 @@ public class BoardManager : Singleton<BoardManager>
     public Transform board;
     public GameObject cellPrefab;
 
-    public Stack<List<GameObject>> history;
-    public List<GameObject> cellList;
+    public Stack<List<string>> history;
+    public List<string> cellList;
     public GameObject[][] cellArr;
 
     private int boardSize;
 
     void Start()
     {
-        history = new Stack<List<GameObject>>();
-        cellList = new List<GameObject>();
+        history = new Stack<List<string>>();
+        cellList = new List<string>();
 
         InitCell();
     }
@@ -25,12 +27,22 @@ public class BoardManager : Singleton<BoardManager>
     void InitCell()
     {
         boardSize = GameManager.Instance.BoardSize;
-        for(int i=0; i<boardSize; i++)
+        for (int i = 0; i < boardSize; i++)
         {
-            // 초기 상태
-            GameObject button = ObjectPooler.TakeFromPool("Cell");
-            cellList.Add(button);
-            history.Push(cellList);
+            ObjectPooler.TakeFromPool("Cell");
+        }
+
+        RefreshTextList();
+
+        history.Push(GameManager.Instance.ListDeepCopy<string>(cellList));
+    }
+
+    public void RefreshTextList()
+    {
+        cellList = new List<string>(); 
+        for(int i=0; i<board.childCount; i++)
+        {
+            cellList.Add(board.GetChild(i).gameObject.GetButtonText());
         }
     }
 
@@ -38,7 +50,7 @@ public class BoardManager : Singleton<BoardManager>
     {
         string result = "O";
 
-        if(history.Count % 2 ==0)
+        if (history.Count % 2 == 0)
             result = "X";
 
         return result;
@@ -51,5 +63,21 @@ public class BoardManager : Singleton<BoardManager>
         result = history.Count;
 
         return result;
+    }
+
+    // History 마지막 CellList 값으로 게임판 초기화
+    public void RefreshBoard()
+    {
+        List<string> recentBoard = history.Pop();
+        
+        // recentBoard.ForEach(button => Debug.Log(button.transform.GetChild(0).TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI a)));
+        
+        for(int i=0; i<board.childCount; i++)
+        {
+            GameObject tmpButton = board.GetChild(i).gameObject;
+            tmpButton.SetButtonText(recentBoard[i]);
+        }
+
+        history.Push(recentBoard);
     }
 }

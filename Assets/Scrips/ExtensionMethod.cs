@@ -6,12 +6,30 @@ using TMPro;
 
 public static class ExtensionMethod
 {
-    public static void SetButtonText(this Button button, string text)
+    public static void SetButtonText(this GameObject button, string text)
     {
-        button.GetComponent<TextMeshPro>().text = text;
+        if (button.transform.GetChild(0).TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI tmpText))
+        {
+            tmpText.SetText(text);
+        }
+    }
+    public static string GetButtonText(this GameObject button)
+    {
+        if (button.transform.GetChild(0).TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI tmpText))
+        {
+            return tmpText.GetText();
+        }
+        else
+        {
+            return "";
+        }
     }
     public static void SetText(this TextMeshProUGUI textMeshProUGUI, string text)
     {
         textMeshProUGUI.text = text;
+    }
+    public static string GetText(this TextMeshProUGUI textMeshProUGUI)
+    {
+        return textMeshProUGUI.text;
     }
 }

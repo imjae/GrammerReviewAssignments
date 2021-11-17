@@ -1,8 +1,10 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 
 public class GameManager : Singleton<GameManager>
 {
@@ -35,10 +37,36 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-
-    void Awake()
+    public List<T> ListDeepCopy<T>(List<T> targetList)
     {
+        List<T> resultList = new List<T>();
+        targetList.ForEach(target =>
+        {
+            
+            resultList.Add(target);
+        });
 
+        return resultList;
+    }
+
+    public void DebugList(List<string> targetList)
+    {
+        string tmp = "";
+
+        targetList.ForEach(text =>
+        {
+            tmp += text + "/";
+        });
+
+        Debug.Log(tmp);
+    }
+
+    public void DebugHistory(Stack<List<string>> targetStack)
+    {
+        foreach (List<string> tlist in targetStack)
+        {
+            DebugList(tlist);
+        }
     }
 }
 
