@@ -29,7 +29,8 @@ public class Cell : MonoBehaviour, Poolable
     public string CellText
     {
         get { return _cellText; }
-        set { 
+        set
+        {
             _cellText = value;
             Debug.Log(transform.GetChild(0).name);
             transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _cellText;
@@ -47,6 +48,7 @@ public class Cell : MonoBehaviour, Poolable
             CellText = BoardManager.Instance.CurrentOrder();
 
             BoardManager.Instance.history.Push(BoardManager.Instance.cellList);
+            GameManager.Instance.Round = BoardManager.Instance.history.Count;
         });
     }
 
