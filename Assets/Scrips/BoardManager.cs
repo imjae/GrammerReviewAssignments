@@ -16,9 +16,8 @@ public class BoardManager : Singleton<BoardManager>
     {
         history = new Stack<List<Cell>>();
         cellList = new List<Cell>();
-
-
     }
+    
     void InitCell()
     {
         Instantiate(cellPrefab);

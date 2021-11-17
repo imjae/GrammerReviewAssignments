@@ -25,6 +25,6 @@ public class Cell : MonoBehaviour
     }
     void Start()
     {
-        Debug.Log(GameManager.Instance.a);
+
     }
 }
