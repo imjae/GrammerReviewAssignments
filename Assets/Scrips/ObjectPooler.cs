@@ -31,8 +31,7 @@ public class ObjectPooler : MonoBehaviour
     Dictionary<string, Queue<GameObject>> poolDictionary;
 
 
-    public static GameObject TakeFromPool(string tag) =>
-        Instance._TakeFromPool(tag);
+    public static GameObject TakeFromPool(string tag) => Instance._TakeFromPool(tag);
 
     public static T TakeFromPool<T>(string tag) where T : Component
 	{
@@ -46,23 +45,6 @@ public class ObjectPooler : MonoBehaviour
 		}
 	}
 
-    public static List<GameObject> GetAllPools(string tag)
-    {
-        if (!Instance.poolDictionary.ContainsKey(tag))
-            throw new Exception($"Pool with tag {tag} doesn't exist.");
-
-        return Instance.spawnObjects.FindAll(x => x.name == tag);
-    }
-
-    public static List<T> GetAllPools<T>(string tag) where T : Component
-    {
-        List<GameObject> objects = GetAllPools(tag);
-
-        if (!objects[0].TryGetComponent(out T component))
-            throw new Exception("Component not found");
-
-        return objects.ConvertAll(x => x.GetComponent<T>());
-    }
 
     public static void ReturnToPool(GameObject obj)
     {
