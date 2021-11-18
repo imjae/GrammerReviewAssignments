@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public abstract class Cell : MonoBehaviour, Poolable
+public class Cell : MonoBehaviour, IPoolable
 {
     private bool _isSelected;
 

@@ -31,7 +31,9 @@ public class ObjectPooler : MonoBehaviour
     Dictionary<string, Queue<GameObject>> poolDictionary;
 
 
-    public static GameObject TakeFromPool(string tag) => Instance._TakeFromPool(tag);
+    public static GameObject TakeFromPool(string tag) {
+        return Instance._TakeFromPool(tag);
+    }
 
     public static T TakeFromPool<T>(string tag) where T : Component
 	{
@@ -73,11 +75,10 @@ public class ObjectPooler : MonoBehaviour
 
         return objectToSpawn;
     }
-
     void Awake()
     {
-        _instance = this;
-
+        Instance = this;
+        
         spawnObjects = new List<GameObject>();
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 

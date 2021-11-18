@@ -7,12 +7,19 @@ public class ButtonEvent : MonoBehaviour
 {
     public Button returnButton;
     public Button historyDebugButton;
-    // Start is called before the first frame update
+    
+    public delegate void Return2RefreshHistory();
+    
     void Start()
     {
+        Return2RefreshHistory  ReturnHistoryNotRefresh = new Return2RefreshHistory(ReturnButtonClickEvent);
+
+        Return2RefreshHistory  ReturnHistoryDoRefresh = new Return2RefreshHistory(ReturnButtonClickEvent);
+        ReturnHistoryDoRefresh += new Return2RefreshHistory(RefreshBoardEvent);
+
         returnButton.onClick.AddListener(() =>
         {
-            ReturnButtonEvent();
+            ReturnHistoryDoRefresh();
         });
         historyDebugButton.onClick.AddListener(() =>
         {
@@ -20,13 +27,19 @@ public class ButtonEvent : MonoBehaviour
         });
     }
 
-    void ReturnButtonEvent()
+    void ReturnButtonClickEvent()
     {
         if(BoardManager.Instance.history.Count > 1)
         {
             BoardManager.Instance.history.Pop();
             GameManager.Instance.Round = BoardManager.Instance.history.Count;
-            BoardManager.Instance.RefreshBoard();
         }
     }
+
+    void RefreshBoardEvent()
+    {
+        BoardManager.Instance.RefreshBoard();
+    }
+
+
 }
