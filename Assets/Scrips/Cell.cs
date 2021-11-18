@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Cell : MonoBehaviour, Poolable
+public abstract class Cell : MonoBehaviour, Poolable
 {
     private bool _isSelected;
 
@@ -45,14 +45,14 @@ public class Cell : MonoBehaviour, Poolable
         {
             CellText = BoardManager.Instance.CurrentOrder();
             BoardManager.Instance.RefreshTextList();
-            
+
             BoardManager.Instance.history.Push(
                 GameManager.Instance.ListDeepCopy<string>(BoardManager.Instance.cellList));
             GameManager.Instance.Round = BoardManager.Instance.history.Count;
         });
     }
 
-    public void OnDisable()
+    public virtual void OnDisable()
     {
         ObjectPooler.ReturnToPool(gameObject);
     }
