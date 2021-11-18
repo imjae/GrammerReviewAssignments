@@ -8,7 +8,6 @@ public class Cell : MonoBehaviour, IPoolable
 {
     private bool _isSelected;
 
-    // TODO has-a °ü°è
     private Coordinate _coord;
     private string _cellText;
     public bool IsSelected
